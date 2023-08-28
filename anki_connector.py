@@ -87,11 +87,7 @@ class Anki_connector:
         if response.status_code != 200:
             return response.status_code
         
-        print(response.json())
+        if response.json()['error']:
+            return response.json()['error']
 
         return 200
-        
-
-connector = Anki_connector()
-
-connector.add_card("Default", "Podstawowy", "Test1", "Test2")
