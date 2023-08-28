@@ -5,6 +5,7 @@ class Anki_connector:
         self.url = url
         self.get_model_names()
         self.get_model_field_names()
+        self.get_deck_names()
 
     def get_model_names(self):
         request_data = {
@@ -56,9 +57,41 @@ class Anki_connector:
             
         self.deck_names = response.json()['result']
     
+    def add_card(self, deckName, modelName, front, back):
+        request_data = {
+            "action": "addNote",
+            "version": 6,
+            "params": {
+                "note": {
+                    "deckName": f"{deckName}",
+                    "modelName": f"{modelName}",
+                    "fields": {
+                        f"{self.model_field_names[modelName][0]}": f"{front}",
+                        f"{self.model_field_names[modelName][1]}": f"{back}"
+                    },
+                    "options": {
+                        "allowDuplicate": False,
+                        "duplicateScope": "deck",
+                        "duplicateScopeOptions": {
+                            "deckName": "Default",
+                            "checkChildren": False,
+                            "checkAllModels": False
+                        }
+                    }
+                }
+            }
+        }                   
+        
+        response = requests.post(self.url, json=request_data)
+
+        if response.status_code != 200:
+            return response.status_code
+        
+        print(response.json())
+
+        return 200
+        
+
 connector = Anki_connector()
 
-connector.get_deck_names()
-print(connector.deck_names)
-
-print(connector.model_field_names)
+connector.add_card("Default", "Podstawowy", "Test1", "Test2")
