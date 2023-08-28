@@ -43,8 +43,22 @@ class Anki_connector:
 
         return 200
     
+    def get_deck_names(self):
+        request_data = {
+            "action": "deckNames",
+            "version": 6
+        }
+
+        response = requests.post(self.url, json=request_data)
+
+        if response.status_code != 200:
+            return response.status_code
+            
+        self.deck_names = response.json()['result']
+    
 connector = Anki_connector()
 
-
+connector.get_deck_names()
+print(connector.deck_names)
 
 print(connector.model_field_names)
