@@ -11,8 +11,9 @@ def find_examples(xml_data):
     sections_with_target_value = root.findall(f'.//section[@sctName="{target_sctName}"]/entry/side/words/word')
 
     result = []
-    for section in sections_with_target_value:
-        result.append(section.text)
+    first = None
+    for i in range(0, len(sections_with_target_value), 2):
+        result.append((sections_with_target_value[i+1].text, sections_with_target_value[i].text))
 
     return(result)
 

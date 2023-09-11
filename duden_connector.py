@@ -25,5 +25,4 @@ def get_examples(word):
             li_texts.append((li_tag.text, None))
         
     return li_texts
-    
-print(get_examples("afdsad"))
+
