@@ -10,7 +10,7 @@ def get_examples(word):
     soup = BeautifulSoup(full_html.text, 'html.parser')
 
     # Find the <dt> tag with the text "Beispiele" within the larger document
-    dt_tag = soup.find('dt', text='Beispiele')
+    dt_tag = soup.find('dt', string='Beispiele')
 
     # Initialize an empty list to store the texts from <li> elements
     li_texts = []
@@ -24,4 +24,6 @@ def get_examples(word):
         for li_tag in li_tags:
             li_texts.append((li_tag.text, None))
         
-        return li_texts
+    return li_texts
+    
+print(get_examples("afdsad"))
