@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 
-def examles_parser(url):
+def get_examples(word):
 
-    full_html = requests.get(url)
+    full_html = requests.get(f"https://www.duden.de/rechtschreibung/{word}")
 
 
     # Create a BeautifulSoup object for the entire HTML document
@@ -22,7 +22,6 @@ def examles_parser(url):
         
         # Extract the text from each <li> tag and add it to the list
         for li_tag in li_tags:
-            li_texts.append(li_tag.get_text())
+            li_texts.append((li_tag.text, None))
         
         return li_texts
-
