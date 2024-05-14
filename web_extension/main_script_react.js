@@ -30,6 +30,9 @@ class MyComponent extends React.Component {
 
     const selectedText = selection.toString();
     if(!selectedText){
+      this.setState({
+        isVisible : false
+      })
       return;
     }
 
@@ -63,7 +66,7 @@ class MyComponent extends React.Component {
 
     this.setState({
       selectedText: selectedText,
-      isVisible: selectedText.trim().length > 0,
+      isVisible: true,
       positionX: endRect.right + window.scrollX,
       positionY: endRect.bottom + window.scrollY
     });
