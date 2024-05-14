@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.lastRange = null;
     this.state = {
       selectedText: "",
       isVisible: false,
@@ -25,11 +26,19 @@ class MyComponent extends React.Component {
   }
 
   handleMouseUp = () => {
-    const selectedText = window.getSelection().toString();
+    var selection = window.getSelection()
 
-    var range = window.getSelection().getRangeAt(0);
+    const selectedText = selection.toString();
+    if(!selectedText){
+      return;
+    }
+
+    
+    var range = selection.getRangeAt(0);
     var endContainer = range.endContainer;
     var endOffset = range.endOffset;
+    
+    this.lastRange = range;
 
     // Create a range to represent the end of the selection
     var endRange = document.createRange();
@@ -61,7 +70,12 @@ class MyComponent extends React.Component {
   }
 
   handleClick = () => {
-    console.log('click');
+    if(this.lastRange){
+      const selection = window.getSelection(); 
+      selection.removeAllRanges();
+      selection.addRange(this.lastRange);
+    }
+    
     this.setState({
       isVisible : "visible"
     })
