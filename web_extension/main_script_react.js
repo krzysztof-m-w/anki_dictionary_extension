@@ -26,8 +26,6 @@ class MyComponent extends React.Component {
 
   handleMouseUp = () => {
     const selectedText = window.getSelection().toString();
-    const selection = window.getSelection().getRangeAt(0).getBoundingClientRect();
-    console.log(selection)
 
     var range = window.getSelection().getRangeAt(0);
     var endContainer = range.endContainer;
@@ -54,7 +52,6 @@ class MyComponent extends React.Component {
         }
     }
 
-  
     this.setState({
       selectedText: selectedText,
       isVisible: selectedText.trim().length > 0,
@@ -63,15 +60,23 @@ class MyComponent extends React.Component {
     });
   }
 
+  handleClick = () => {
+    console.log('click');
+    this.setState({
+      isVisible : "visible"
+    })
+  }
+
+
+
   render() {
     const componentStyle = {
       position: "absolute",
       top: `${this.state.positionY}px`,
       left: `${this.state.positionX}px`,
-      transform: "translate(-50%, -50%)",
       backgroundColor: "lightblue",
-      padding: "20px",
-      borderRadius: "5px",
+      padding: "6px",
+      borderRadius: "500px",
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
       cursor: "pointer",
       visibility: this.state.isVisible ? "visible" : "hidden"
@@ -81,8 +86,9 @@ class MyComponent extends React.Component {
     return (
       <div 
         style={componentStyle}
+        onClick={this.handleClick}
       >
-        Hello from React!
+        +
       </div>
     );
   }
