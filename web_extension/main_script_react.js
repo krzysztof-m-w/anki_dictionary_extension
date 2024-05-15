@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import DisplayPanel from "./DisplayPanel";
+
+
 // Define a React component using JSX
 class MyComponent extends React.Component {
   constructor(props) {
@@ -11,6 +14,7 @@ class MyComponent extends React.Component {
       isVisible: false,
       positionX: 200,
       positionY: 200,
+      showDisplayPanel : false
     };
   }
 
@@ -34,7 +38,8 @@ class MyComponent extends React.Component {
     const selectedText = selection.toString();
     if(!selectedText){
       this.setState({
-        isVisible : false
+        isVisible : false,
+        showDisplayPanel : false
       })
       return;
     }
@@ -76,15 +81,10 @@ class MyComponent extends React.Component {
   }
 
   handleClick = () => {
-    if(this.lastRange){
-      const selection = window.getSelection(); 
-      selection.removeAllRanges();
-      selection.addRange(this.lastRange);
-    }
-    
     this.setState({
-      isVisible : "visible"
+      showDisplayPanel : true
     })
+
   }
 
 
@@ -94,10 +94,6 @@ class MyComponent extends React.Component {
       position: "absolute",
       top: `${this.state.positionY}px`,
       left: `${this.state.positionX}px`,
-      backgroundColor: "lightblue",
-      padding: "6px",
-      borderRadius: "500px",
-      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
       cursor: "pointer",
       visibility: this.state.isVisible ? "visible" : "hidden"
       
@@ -106,10 +102,16 @@ class MyComponent extends React.Component {
     return (
       <div 
         style={componentStyle}
-        onClick={this.handleClick}
-        ref={(node) => { this.node = node; }}
-      >
-        +
+        ref={(node) => { this.node = node; }}>
+        <div className="ankiComponent"
+          onClick={this.handleClick}
+        >
+          +
+        </div>
+        <DisplayPanel 
+          selectedText={this.state.selectedText}
+          isVisible={this.state.showDisplayPanel}
+        />
       </div>
     );
   }
