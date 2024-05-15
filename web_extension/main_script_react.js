@@ -1,5 +1,3 @@
-console.log('SCRIPT WORKING');
-
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -25,7 +23,12 @@ class MyComponent extends React.Component {
     document.body.removeEventListener('mouseup', this.handleMouseUp);
   }
 
-  handleMouseUp = () => {
+  handleMouseUp = (event) => {
+    //ignore actions from inside the component
+    if (this.node.contains(event.target)) {
+      return
+    }
+
     var selection = window.getSelection()
 
     const selectedText = selection.toString();
@@ -104,6 +107,7 @@ class MyComponent extends React.Component {
       <div 
         style={componentStyle}
         onClick={this.handleClick}
+        ref={(node) => { this.node = node; }}
       >
         +
       </div>
