@@ -111,6 +111,7 @@ class MyComponent extends React.Component {
         <DisplayPanel 
           selectedText={this.state.selectedText}
           isVisible={this.state.showDisplayPanel}
+          src={'https://www.diki.pl/slownik-niemieckiego'}
         />
       </div>
     );
