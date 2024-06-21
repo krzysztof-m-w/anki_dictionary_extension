@@ -26,7 +26,7 @@ export default function DisplayPanel(props){
             const x = rect.left + window.screenX;
             const y = rect.bottom + window.screenY + 100;
       
-            const url = 'https://www.diki.pl/slownik-niemieckiego';
+            const url = 'https://www.diki.pl/slownik-niemieckiego?q=' + selectedText;
             const windowName = '_blank';
             const windowFeatures = `width=300,height=300,left=${x},top=${y}`;
             const newWin = window.open(url, windowName, windowFeatures);
